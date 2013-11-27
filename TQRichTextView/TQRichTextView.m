@@ -77,6 +77,10 @@
     {
         CFIndex testLineLength = CTTypesetterSuggestLineBreak(typeSetter,lineRange.location,self.bounds.size.width);
 check:  lineRange = CFRangeMake(lineRange.location,testLineLength);
+        // 防止crash
+        if (lineRange.length<0) {
+            return;
+        }
         CTLineRef line = CTTypesetterCreateLine(typeSetter,lineRange);
         CFArrayRef runs = CTLineGetGlyphRuns(line);
         
